@@ -23,6 +23,22 @@ public class Controller {
             method = RequestMethod.GET)
     public void triggerSqsPublish(@RequestParam  String foo) {
 
+        /*
+            userId from cookie
+
+
+
+            count = redisTemplate.decrementAndGet()
+
+            if(count > 0)  {
+                sqsPublisher.send(EventMessage.builder()
+                    .foo(foo)
+                    .build());
+            }
+
+            return count;
+         */
+
         sqsPublisher.send(EventMessage.builder()
             .foo(foo)
             .build());

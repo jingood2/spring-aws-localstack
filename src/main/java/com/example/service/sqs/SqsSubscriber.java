@@ -1,6 +1,7 @@
 package com.example.service.sqs;
 
 import com.example.service.domain.EventMessage;
+import com.example.service.domain.RequestCouponMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.aws.messaging.config.annotation.NotificationMessage;
 import org.springframework.cloud.aws.messaging.listener.annotation.SqsListener;
@@ -45,6 +46,8 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class SqsSubscriber {
 
+    // change lambda
+
     @SqsListener("${sqs.queue.sns.fanout}")
     public void subscribeToSNSFanout(@NotificationMessage final EventMessage msg) {
         log.error("Received message from SNS topic: " + msg);
@@ -55,4 +58,8 @@ public class SqsSubscriber {
         log.error("Received message: " + msg);
     }
 
+    @SqsListener("${sqs.queue.event}")
+    public void subscribeToSQSDirectly(final RequestCouponMessage msg) {
+        log.error("Received message: " + msg);
+    }
 }
